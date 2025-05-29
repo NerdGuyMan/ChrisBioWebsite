@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payaso</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: monospace;
+      background: black;
+      color: #00ff00;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .typing {
+      font-size: 1.5rem;
+      text-align: left;
+      white-space: nowrap;
+      max-width: 90vw;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      color: #00ff00;
+      animation: blink-caret 0.75s step-end infinite;
+      user-select: none;
+    }
+    @keyframes blink-caret {
+      50% { opacity: 0; }
+    }
+    footer {
+      opacity: 0;
+      color: #00ff00;
+      font-size: 1rem;
+      transition: opacity 2s ease;
+      user-select: none;
+    }
+    footer.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="typing" id="typed-container">
+    <span id="text"></span><span class="cursor" id="cursor">|</span>
+  </div>
+
+  <footer id="footer">
+    © 2025 Payaso. All rights reserved.
+  </footer>
+
+  <script>
+    const lines = [
+      "Christopher Gibbs. ",
+      "Amateur Software Engineer. ",
+      "chris@gibbs.lol"
+    ];
+    const speed = 50;
+    const lineDelay = 1000;
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    const textElem = document.getElementById('text');
+    const cursor = document.getElementById('cursor');
+    const footer = document.getElementById('footer');
+
+    function typeWriter() {
+      if(lineIndex >= lines.length) {
+        cursor.style.display = 'none'; // hide cursor when done
+        footer.classList.add('visible'); // fade in footer
+        return;
+      }
+
+      const currentLine = lines[lineIndex];
+      if(charIndex < currentLine.length) {
+        textElem.textContent += currentLine.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, speed);
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeWriter, lineDelay);
+      }
+    }
+
+    typeWriter();
+  </script>
+
+</body>
+</html>
