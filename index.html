@@ -17,13 +17,15 @@
       overflow: hidden;
     }
     .typing {
-      font-size: 1.5rem;
-      text-align: left;
-      white-space: nowrap;
-      max-width: 90vw;
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
+  font-size: clamp(1rem, 2vw, 1.5rem); /* scales between 1rem and 1.5rem based on viewport width */
+  text-align: left;
+  white-space: normal;       /* allow wrapping */
+  max-width: 90vw;           /* max width relative to viewport */
+  word-wrap: break-word;     /* break long words if needed */
+  overflow-wrap: break-word; /* fallback for word wrap */
+  overflow: visible;         /* show all text */
+  margin-bottom: 2rem;
+}
     .cursor {
       display: inline-block;
       width: 1ch;
@@ -58,8 +60,8 @@
 
   <script>
     const lines = [
-      "Christopher Gibbs. ",
-      "Amateur Software Engineer. ",
+      "Christopher Gibbs - ",
+      "Amateur Software Engineer - ",
       "chris@gibbs.lol"
     ];
     const speed = 50;
